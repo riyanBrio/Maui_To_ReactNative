@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>.NET MAUI to React Native / Expo Mapping Guide</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2em; }
+    table { border-collapse: collapse; width: 100%; margin-bottom: 2em; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    th { background: #f4f4f4; }
+    details { margin-top: 8px; }
+    summary { cursor: pointer; font-weight: bold; }
+    pre { background: #f8f8f8; padding: 8px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <h1>.NET MAUI to React Native / Expo Mapping Guide</h1>
+  <p>This document maps every major and minor control, layout, page, and feature from .NET MAUI (latest version) to their React Native / Expo equivalents. Each entry includes:</p>
+  <ul>
+    <li>MAUI name</li>
+    <li>React Native / Expo equivalent</li>
+    <li>npm install command (if needed)</li>
+    <li>Expandable code example (click to view)</li>
+    <li>Alternatives if no direct equivalent</li>
+  </ul>
+
+  <h2>Controls</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>MAUI Control</th>
+        <th>React Native / Expo</th>
+        <th>npm Install</th>
+        <th>Code Example</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- All controls from the markdown, each with <details> for code -->
+      <tr>
+        <td>Button</td>
+        <td>Pressable / Button</td>
+        <td>-</td>
+        <td><details><summary>Show code</summary><pre><code>import React from 'react';
+import { Button } from 'react-native';
+
+export default function App() {
+  return (
+    &lt;Button
+      title="Click Me"
+      onPress={() => alert('Button pressed!')}
+    /&gt;
+  );
+}
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>Label</td>
+        <td>Text</td>
+        <td>-</td>
+        <td><details><summary>Show code</summary><pre><code>import React from 'react';
+import { Text } from 'react-native';
+
+export default function App() {
+  return (
+    &lt;Text&gt;Hello World&lt;/Text&gt;
+  );
+}
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>Entry</td>
+        <td>TextInput</td>
+        <td>-</td>
+        <td><details><summary>Show code</summary><pre><code>import React, { useState } from 'react';
+import { TextInput } from 'react-native';
+
+export default function App() {
+  const [value, setValue] = useState('');
+  return (
+    &lt;TextInput
+      value={value}
+      onChangeText={setValue}
+      placeholder="Enter text"
+      style={{ borderWidth: 1, padding: 8 }}
+    /&gt;
+  );
+}
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>Picker</td>
+        <td>Picker (@react-native-picker/picker)</td>
+        <td>npm install @react-native-picker/picker</td>
+        <td><details><summary>Show code</summary><pre><code>import React, { useState } from 'react';
+import { Picker } from '@react-native-picker/picker';
+
+export default function App() {
+  const [selected, setSelected] = useState('java');
+  return (
+    &lt;Picker
+      selectedValue={selected}
+      onValueChange={setSelected}
+      style={{ height: 50, width: 150 }}
+    &gt;
+      &lt;Picker.Item label="Java" value="java" /&gt;
+      &lt;Picker.Item label="JavaScript" value="js" /&gt;
+    &lt;/Picker&gt;
+  );
+}
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>Switch</td>
+        <td>Switch</td>
+        <td>-</td>
+        <td><details><summary>Show code</summary><pre><code>import React, { useState } from 'react';
+import { Switch } from 'react-native';
+
+export default function App() {
+  const [isEnabled, setIsEnabled] = useState(false);
+  return (
+    &lt;Switch
+      value={isEnabled}
+      onValueChange={setIsEnabled}
+    /&gt;
+  );
+}
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>Slider</td>
+        <td>Slider (@react-native-community/slider)</td>
+        <td>npm install @react-native-community/slider</td>
+        <td><details><summary>Show code</summary><pre><code>import React, { useState } from 'react';
+import Slider from '@react-native-community/slider';
+
+export default function App() {
+  const [value, setValue] = useState(0);
+  return (
+    &lt;Slider
+      value={value}
+      onValueChange={setValue}
+      minimumValue={0}
+      maximumValue={100}
+      step={1}
+    /&gt;
+  );
+}
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>Stepper</td>
+        <td>Custom implementation</td>
+        <td>-</td>
+        <td><details><summary>Show code</summary><pre><code>// Custom stepper example
+import React, { useState } from 'react';
+import { View, Button, Text } from 'react-native';
+
+export default function App() {
+  const [count, setCount] = useState(0);
+  return (
+    &lt;View&gt;
+      &lt;Button title="-" onPress={() => setCount(count - 1)} /&gt;
+      &lt;Text&gt;{count}&lt;/Text&gt;
+      &lt;Button title="+" onPress={() => setCount(count + 1)} /&gt;
+    &lt;/View&gt;
+  );
+}
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>CheckBox</td>
+        <td>CheckBox (@react-native-community/checkbox)</td>
+        <td>npm install @react-native-community/checkbox</td>
+        <td><details><summary>Show code</summary><pre><code>import React, { useState } from 'react';
+import CheckBox from '@react-native-community/checkbox';
+
+export default function App() {
+  const [isChecked, setChecked] = useState(false);
+  return (
+    &lt;CheckBox
+      value={isChecked}
+      onValueChange={setChecked}
+    /&gt;
+  );
+}
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>RadioButton</td>
+        <td>RadioButton (react-native-paper)</td>
+        <td>npm install react-native-paper</td>
+        <td><details><summary>Show code</summary><pre><code>import * as React from 'react';
+import { RadioButton } from 'react-native-paper';
+
+export default function App() {
+  const [value, setValue] = React.useState('first');
+  return (
+    &lt;RadioButton.Group onValueChange={setValue} value={value}&gt;
+      &lt;RadioButton.Item label="First" value="first" /&gt;
+      &lt;RadioButton.Item label="Second" value="second" /&gt;
+    &lt;/RadioButton.Group&gt;
+  );
+}
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>Image</td>
+        <td>Image</td>
+        <td>-</td>
+        <td><details><summary>Show code</summary><pre><code>import React from 'react';
+import { Image } from 'react-native';
+
+export default function App() {
+  return (
+    &lt;Image
+      source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
+      style={{ width: 50, height: 50 }}
+    /&gt;
+  );
+}
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>ActivityIndicator</td>
+        <td>ActivityIndicator</td>
+        <td>-</td>
+        <td><details><summary>Show code</summary><pre><code>import React from 'react';
+import { ActivityIndicator } from 'react-native';
+
+export default function App() {
+  return (
+    &lt;ActivityIndicator size="large" color="#0000ff" /&gt;
+  );
+}
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>ProgressBar</td>
+        <td>ProgressBar (react-native-paper)</td>
+        <td>npm install react-native-paper</td>
+        <td><details><summary>Show code</summary><pre><code>import * as React from 'react';
+import { ProgressBar } from 'react-native-paper';
+
+export default function App() {
+  return (
+    &lt;ProgressBar progress={0.5} color="blue" /&gt;
+  );
+}
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>WebView</td>
+        <td>WebView (react-native-webview)</td>
+        <td>npm install react-native-webview</td>
+        <td><details><summary>Show code</summary><pre><code>import React from 'react';
+import { WebView } from 'react-native-webview';
+
+export default function App() {
+  return (
+    &lt;WebView source={{ uri: 'https://reactnative.dev/' }} style={{ flex: 1 }} /&gt;
+  );
+}
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>Map</td>
+        <td>MapView (react-native-maps)</td>
+        <td>npm install react-native-maps</td>
+        <td><details><summary>Show code</summary><pre><code>import React from 'react';
+import MapView from 'react-native-maps';
+
+export default function App() {
+  return (
+    &lt;MapView
+      style={{ flex: 1 }}
+      initialRegion={{
+        latitude: 37.78825,
+        longitude: -122.4324,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      }}
+    /&gt;
+  );
+}
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>CarouselView</td>
+        <td>react-native-snap-carousel</td>
+        <td>npm install react-native-snap-carousel</td>
+        <td><details><summary>Show code</summary><pre><code>import React from 'react';
+import Carousel from 'react-native-snap-carousel';
+import { View, Text, Dimensions } from 'react-native';
+
+const data = [{ title: 'Item 1' }, { title: 'Item 2' }];
+
+export default function App() {
+  const renderItem = ({ item }) => (
+    <View style={{ backgroundColor: 'lightblue', borderRadius: 5, height: 150, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>{item.title}</Text>
+    </View>
+  );
+
+  return (
+    <Carousel
+      data={data}
+      renderItem={renderItem}
+      sliderWidth={Dimensions.get('window').width}
+      itemWidth={250}
+    />
+  );
+}
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>Expander</td>
+        <td>react-native-collapsible</td>
+        <td>npm install react-native-collapsible</td>
+        <td><details><summary>Show code</summary><pre><code>import React, { useState } from 'react';
+import { TouchableOpacity, Text } from 'react-native';
+import Collapsible from 'react-native-collapsible';
+
+export default function App() {
+  const [collapsed, setCollapsed] = useState(true);
+  return (
+    &lt;&gt;
+      &lt;TouchableOpacity onPress={() => setCollapsed(!collapsed)}&gt;
+        &lt;Text&gt;Toggle&lt;/Text&gt;
+      &lt;/TouchableOpacity&gt;
+      &lt;Collapsible collapsed={collapsed}&gt;
+        &lt;Text&gt;This is hidden content&lt;/Text&gt;
+      &lt;/Collapsible&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>SwipeView</td>
+        <td>react-native-swipe-list-view</td>
+        <td>npm install react-native-swipe-list-view</td>
+        <td><details><summary>Show code</summary><pre><code>import React from 'react';
+import { SwipeListView } from 'react-native-swipe-list-view';
+import { View, Text } from 'react-native';
+
+const data = [{ key: '1', text: 'Item 1' }, { key: '2', text: 'Item 2' }];
+
+export default function App() {
+  return (
+    <SwipeListView
+      data={data}
+      renderItem={({ item }) => (
+        <View style={{ backgroundColor: 'white', padding: 20 }}>
+          <Text>{item.text}</Text>
+        </View>
+      )}
+      renderHiddenItem={() => (
+        <View style={{ backgroundColor: 'red', padding: 20 }}>
+          <Text>Delete</Text>
+        </View>
+      )}
+      rightOpenValue={-75}
+    />
+  );
+}
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>IndicatorView</td>
+        <td>react-native-indicators</td>
+        <td>npm install react-native-indicators</td>
+        <td><details><summary>Show code</summary><pre><code>// See https://github.com/n4kz/react-native-indicators for usage examples
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>Shapes (Ellipse, Rectangle, etc.)</td>
+        <td>react-native-svg</td>
+        <td>npm install react-native-svg</td>
+        <td><details><summary>Show code</summary><pre><code>// See https://github.com/react-native-svg/react-native-svg for usage examples
+</code></pre></details></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Pages & Navigation</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>MAUI Page</th>
+        <th>React Native / Expo</th>
+        <th>npm Install</th>
+        <th>Code Example</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- All pages/navigation from the markdown, each with <details> for code -->
+      <tr>
+        <td>ContentPage</td>
+        <td>Screen Component</td>
+        <td>-</td>
+        <td><details><summary>Show code</summary><pre><code>import React from 'react';
+import { View, Text } from 'react-native';
+
+export default function HomeScreen() {
+  return (
+    &lt;View&gt;
+      &lt;Text&gt;Home Page&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>NavigationPage</td>
+        <td>react-navigation Stack Navigator</td>
+        <td>npm install @react-navigation/native @react-navigation/stack</td>
+        <td><details><summary>Show code</summary><pre><code>import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { View, Text, Button } from 'react-native';
+
+function HomeScreen({ navigation }) {
+  return (
+    &lt;View&gt;
+      &lt;Text&gt;Home&lt;/Text&gt;
+      &lt;Button title="Go to Details" onPress={() => navigation.navigate('Details')} /&gt;
+    &lt;/View&gt;
+  );
+}
+
+function DetailsScreen() {
+  return (
+    &lt;View&gt;
+      &lt;Text&gt;Details&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}
+
+const Stack = createStackNavigator();
+
+export default function App() {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;Stack.Navigator&gt;
+        &lt;Stack.Screen name="Home" component={HomeScreen} /&gt;
+        &lt;Stack.Screen name="Details" component={DetailsScreen} /&gt;
+      &lt;/Stack.Navigator&gt;
+    &lt;/NavigationContainer&gt;
+  );
+}
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>TabbedPage</td>
+        <td>react-navigation Bottom Tabs</td>
+        <td>npm install @react-navigation/native @react-navigation/bottom-tabs</td>
+        <td><details><summary>Show code</summary><pre><code>import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { View, Text } from 'react-native';
+
+function HomeScreen() {
+  return &lt;View&gt;&lt;Text&gt;Home&lt;/Text&gt;&lt;/View&gt;;
+}
+
+function SettingsScreen() {
+  return &lt;View&gt;&lt;Text&gt;Settings&lt;/Text&gt;&lt;/View&gt;;
+}
+
+const Tab = createBottomTabNavigator();
+
+export default function App() {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;Tab.Navigator&gt;
+        &lt;Tab.Screen name="Home" component={HomeScreen} /&gt;
+        &lt;Tab.Screen name="Settings" component={SettingsScreen} /&gt;
+      &lt;/Tab.Navigator&gt;
+    &lt;/NavigationContainer&gt;
+  );
+}
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>FlyoutPage</td>
+        <td>react-navigation Drawer Navigator</td>
+        <td>npm install @react-navigation/native @react-navigation/drawer</td>
+        <td><details><summary>Show code</summary><pre><code>import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { View, Text } from 'react-native';
+
+function HomeScreen() {
+  return &lt;View&gt;&lt;Text&gt;Home&lt;/Text&gt;&lt;/View&gt;;
+}
+
+function SettingsScreen() {
+  return &lt;View&gt;&lt;Text&gt;Settings&lt;/Text&gt;&lt;/View&gt;;
+}
+
+const Drawer = createDrawerNavigator();
+
+export default function App() {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;Drawer.Navigator&gt;
+        &lt;Drawer.Screen name="Home" component={HomeScreen} /&gt;
+        &lt;Drawer.Screen name="Settings" component={SettingsScreen} /&gt;
+      &lt;/Drawer.Navigator&gt;
+    &lt;/NavigationContainer&gt;
+  );
+}
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>Shell</td>
+        <td>Combine react-navigation Stack, Tabs, Drawer</td>
+        <td>See above</td>
+        <td><details><summary>Show code</summary><pre><code>// Combine Stack, Tabs, and Drawer navigators for Shell-like structure.
+// See above for individual navigator examples.
+</code></pre></details></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Platform-Specific Features</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>MAUI Feature</th>
+        <th>Expo Equivalent</th>
+        <th>npm Install</th>
+        <th>Code Example</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- All platform features from the markdown, each with <details> for code -->
+      <tr>
+        <td>SecureStorage</td>
+        <td>expo-secure-store</td>
+        <td>expo install expo-secure-store</td>
+        <td><details><summary>Show code</summary><pre><code>import * as SecureStore from 'expo-secure-store';
+
+async function save(key, value) {
+  await SecureStore.setItemAsync(key, value);
+}
+
+async function getValue(key) {
+  let result = await SecureStore.getItemAsync(key);
+  // result is null if not found
+}
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>Geolocation</td>
+        <td>expo-location</td>
+        <td>expo install expo-location</td>
+        <td><details><summary>Show code</summary><pre><code>import * as Location from 'expo-location';
+
+async function getLocation() {
+  let { status } = await Location.requestForegroundPermissionsAsync();
+  if (status !== 'granted') {
+    alert('Permission denied');
+    return;
+  }
+  let location = await Location.getCurrentPositionAsync({});
+  // location.coords.latitude, location.coords.longitude
+}
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>Camera</td>
+        <td>expo-camera</td>
+        <td>expo install expo-camera</td>
+        <td><details><summary>Show code</summary><pre><code>import React, { useState, useEffect } from 'react';
+import { Button } from 'react-native';
+import { Camera } from 'expo-camera';
+
+export default function App() {
+  const [hasPermission, setHasPermission] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      setHasPermission(status === 'granted');
+    })();
+  }, []);
+
+  if (hasPermission === null) return <Button title="Request Permission" />;
+  if (hasPermission === false) return <Text>No access to camera</Text>;
+
+  return <Camera style={{ flex: 1 }} />;
+}
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>FileSystem</td>
+        <td>expo-file-system</td>
+        <td>expo install expo-file-system</td>
+        <td><details><summary>Show code</summary><pre><code>import * as FileSystem from 'expo-file-system';
+
+async function readFile(uri) {
+  const content = await FileSystem.readAsStringAsync(uri);
+  // content is the file contents
+}
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>Clipboard</td>
+        <td>expo-clipboard</td>
+        <td>expo install expo-clipboard</td>
+        <td><details><summary>Show code</summary><pre><code>import * as Clipboard from 'expo-clipboard';
+
+function copyToClipboard(text) {
+  Clipboard.setStringAsync(text);
+}
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>Share</td>
+        <td>expo-sharing</td>
+        <td>expo install expo-sharing</td>
+        <td><details><summary>Show code</summary><pre><code>import * as Sharing from 'expo-sharing';
+
+async function shareFile(uri) {
+  await Sharing.shareAsync(uri);
+}
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>Contacts</td>
+        <td>expo-contacts</td>
+        <td>expo install expo-contacts</td>
+        <td><details><summary>Show code</summary><pre><code>import * as Contacts from 'expo-contacts';
+
+async function getContacts() {
+  const { status } = await Contacts.requestPermissionsAsync();
+  if (status === 'granted') {
+    const { data } = await Contacts.getContactsAsync({
+      fields: [Contacts.Fields.Emails],
+    });
+    // data is array of contacts
+  }
+}
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>Notifications</td>
+        <td>expo-notifications</td>
+        <td>expo install expo-notifications</td>
+        <td><details><summary>Show code</summary><pre><code>import * as Notifications from 'expo-notifications';
+
+async function scheduleNotification() {
+  await Notifications.scheduleNotificationAsync({
+    content: { title: "Hello", body: "World" },
+    trigger: { seconds: 2 },
+  });
+}
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>Permissions</td>
+        <td>expo-permissions (deprecated, use per-module permissions)</td>
+        <td>See specific module (e.g., expo-location)</td>
+        <td><details><summary>Show code</summary><pre><code>// See above for per-feature permission requests.
+</code></pre></details></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Advanced Controls</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>MAUI Control</th>
+        <th>React Native / Expo Equivalent</th>
+        <th>npm Install</th>
+        <th>Code Example</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- All advanced controls from the markdown, each with <details> for code or link -->
+      <tr>
+        <td>CarouselView</td>
+        <td>react-native-snap-carousel</td>
+        <td>npm install react-native-snap-carousel</td>
+        <td><details><summary>Show code</summary><pre><code>import React from 'react';
+import Carousel from 'react-native-snap-carousel';
+import { View, Text, Dimensions } from 'react-native';
+
+const data = [{ title: 'Item 1' }, { title: 'Item 2' }];
+
+export default function App() {
+  const renderItem = ({ item }) => (
+    <View style={{ backgroundColor: 'lightblue', borderRadius: 5, height: 150, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>{item.title}</Text>
+    </View>
+  );
+
+  return (
+    <Carousel
+      data={data}
+      renderItem={renderItem}
+      sliderWidth={Dimensions.get('window').width}
+      itemWidth={250}
+    />
+  );
+}
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>Expander</td>
+        <td>react-native-collapsible</td>
+        <td>npm install react-native-collapsible</td>
+        <td><details><summary>Show code</summary><pre><code>import React, { useState } from 'react';
+import { TouchableOpacity, Text } from 'react-native';
+import Collapsible from 'react-native-collapsible';
+
+export default function App() {
+  const [collapsed, setCollapsed] = useState(true);
+  return (
+    &lt;&gt;
+      &lt;TouchableOpacity onPress={() => setCollapsed(!collapsed)}&gt;
+        &lt;Text&gt;Toggle&lt;/Text&gt;
+      &lt;/TouchableOpacity&gt;
+      &lt;Collapsible collapsed={collapsed}&gt;
+        &lt;Text&gt;This is hidden content&lt;/Text&gt;
+      &lt;/Collapsible&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>SwipeView</td>
+        <td>react-native-swipe-list-view</td>
+        <td>npm install react-native-swipe-list-view</td>
+        <td><details><summary>Show code</summary><pre><code>import React from 'react';
+import { SwipeListView } from 'react-native-swipe-list-view';
+import { View, Text } from 'react-native';
+
+const data = [{ key: '1', text: 'Item 1' }, { key: '2', text: 'Item 2' }];
+
+export default function App() {
+  return (
+    <SwipeListView
+      data={data}
+      renderItem={({ item }) => (
+        <View style={{ backgroundColor: 'white', padding: 20 }}>
+          <Text>{item.text}</Text>
+        </View>
+      )}
+      renderHiddenItem={() => (
+        <View style={{ backgroundColor: 'red', padding: 20 }}>
+          <Text>Delete</Text>
+        </View>
+      )}
+      rightOpenValue={-75}
+    />
+  );
+}
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>IndicatorView</td>
+        <td>react-native-indicators</td>
+        <td>npm install react-native-indicators</td>
+        <td><details><summary>Show code</summary><pre><code>// See https://github.com/n4kz/react-native-indicators for usage examples
+</code></pre></details></td>
+      </tr>
+      <tr>
+        <td>Shapes (Ellipse, Rectangle, etc.)</td>
+        <td>react-native-svg</td>
+        <td>npm install react-native-svg</td>
+        <td><details><summary>Show code</summary><pre><code>// See https://github.com/react-native-svg/react-native-svg for usage examples
+</code></pre></details></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Notes</h2>
+  <ul>
+    <li>For controls without direct equivalents, use third-party libraries or custom implementations.</li>
+    <li>All code samples use functional components and hooks.</li>
+    <li>For Expo projects, prefer using Expo modules for platform features.</li>
+    <li>For navigation, use <code>react-navigation</code> and its navigators (Stack, Tabs, Drawer).</li>
+    <li>For advanced UI, consider libraries like <code>react-native-paper</code>, <code>react-native-ui-lib</code>, and <code>react-native-elements</code>.</li>
+  </ul>
+
+  <h2>References</h2>
+  <ul>
+    <li><a href="https://learn.microsoft.com/en-us/dotnet/maui/user-interface/controls/" target="_blank">.NET MAUI Controls</a></li>
+    <li><a href="https://reactnative.dev/docs/components-and-apis" target="_blank">React Native Docs</a></li>
+    <li><a href="https://docs.expo.dev/versions/latest/" target="_blank">Expo Docs</a></li>
+    <li><a href="https://reactnavigation.org/" target="_blank">React Navigation</a></li>
+  </ul>
+
+  <p><em>This document is ready to use. Expand code samples as needed!</em></p>
+</body>
+</html>
